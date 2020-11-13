@@ -5,9 +5,17 @@ The SBS_CLUSTERING package is used to cluster somatic SBS mutation sequences.
 
 All the data was downloaded from [The Cancer Genome Atlas Program Database](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga). Training and analysis of clinical data involved 2 kinds of files: .maf files contains SBS data and .xml files contains clinical data. 
 
-## 1.2 Data Pretreat
+## 1.2 Sample Data
 
-file: `/SBS_CLUSTERING/dataloader.py`
+Folder: `/SBS_CLUSTER/SAMPLE_DATA`
+
+`./mut_info_XX.csv`:  the format of mutation information used for training, extracted from `.maf` files.
+
+`./clinical_info.csv` : the format of patient information used for analysis, extracted from `.xml` file.
+
+## 1.3 Data Pretreat
+
+file: `/SBS_CLUSTER/dataloader.py`
 
 Mutation bases were got from .maf file. Reference sequences were got from Genome Reference Consortium Human Build 38 (GRCh38) according to the mutation position and number of flanking bases needed to include in the training data. 
 
@@ -59,9 +67,9 @@ It is suggested to extract mutation information from .maf files and assign them 
 > - file_name: the .csv file contains mutation information.
 > - batchsize: number of samples in each batch of training data.
 
-## 1.3 Model building
+## 1.4 Model building
 
-file: `/SBS_CLUSTERING/model.py`
+file: `/SBS_CLUSTER/model.py`
 
 LSTM-SOM model contains 2 parts: using LSTM to extract feature of mutation sequences, and use SOM for clustering of feature vector. `pytorch` is used in the building and training of LSTM-SOM model.
 
@@ -104,9 +112,9 @@ LSTM-SOM model contains 2 parts: using LSTM to extract feature of mutation seque
 >
 >- batch_sample: input data of SOM.
 
-## 1.4 Train
+## 1.5 Train
 
-file: `/SBS_CLUSTERING/train.py`
+file: `/SBS_CLUSTER/train.py`
 
 Train process of LSTM-SOM.
 
@@ -116,13 +124,13 @@ Constant `GRADE`: read from argparse '-g'. Because there are multiple rounds of 
 
 i.e. `python traing.py -g 21000`
 
-The trained model, log data, and sample graph will be stored in the corresponding folder defined in `cfg.py`. Model and log data will be saved each half the number of batches in each file,  and figure will be saved after every iter of training.
+The trained model, log data, and sample graph will be stored in the corresponding folder defined in `cfg.py`. Model and log data will be saved each half the number of batches in each file,  and figure will be saved after every iter of training. Three of the eight dimensions are displayed using a spatial rectangular coordinate system
 
 Note: if CPU version of pytorch is used, corresponding code should be modified.
 
-## 1.5 Test
+## 1.6 Test
 
-file: `/SBS_CLUSTERING/test.py`
+file: `/SBS_CLUSTER/test.py`
 
 Test process and output result. The final result is the output of LSTM.
 
@@ -150,9 +158,9 @@ python test.py -c 1 -g 31200
 
 If this sample is clustered as '1' in 3rd round, the final class result is '1210'.
 
-## 1.6 Configuration
+## 1.7 Configuration
 
-file: `/SBS_TRAINING/cfg.py`
+file: `/SBS_CLUSTER/cfg.py`
 
 There are some parameters in training and testing process, these parameters are written in `cfg.py`. 
 
@@ -176,7 +184,7 @@ Class `CFG`:
 
 `CFG.SOMTARLR`: Learning rate of SOM. Default 0.001.
 
-`CFG.SIGMA`: sigma of Decay function in SOM. Default 0.4.
+`CFG.SIGMA`: sigma of Nighborhood function in SOM. Default 0.4.
 
 `CFG.PUSHTHRESHOLD`: precent of units move close to target. Default 0.05.
 
@@ -197,3 +205,6 @@ Class `CFG`:
 `CFG.FIG_PATH`: path that store the output `.jpg` files of LSTM output in training process. Default 3 of 8 deminsions is shown in space rectangular coordinate system.
 
 `CFG.PRED_INDEX`: the list of columns of output result that wish to add to the `.csv` file , number of elements in the list should be equal to the dimension of output vector.
+
+
+
