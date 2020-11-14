@@ -169,9 +169,8 @@ def GetBatchSample(file_name, grade, batchsize=CFG.BATCH_SIZE):
 
 
 if __name__ == '__main__': #devide .maf file into .csv file randomly
-    samples, left_samples = GetBatchSample('/home/ji/Documents/lstmsom_data/mut_info_20200212/mut_info_130.csv')
-    print(samples.shape, left_samples.shape)
-    """
+    #samples, left_samples = GetBatchSample('/home/ji/Documents/lstmsom_data/mut_info_20200212/mut_info_130.csv')
+    #print(samples.shape, left_samples.shape)
     folders = os.listdir('/media/ji/data/TCGA_DATA/MAF/')
     outputtlist = None
     for folder in folders:
@@ -210,4 +209,3 @@ if __name__ == '__main__': #devide .maf file into .csv file randomly
             output_list.to_csv(TARGET_FOLDER + 'mut_info_' + str(file_num) + '.csv',
                                header=col_name,
                                index=None)
-    """

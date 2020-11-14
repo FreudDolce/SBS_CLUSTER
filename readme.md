@@ -47,7 +47,7 @@ Use `dataloader.py` in the pretreating of training data.
 >
 > - maf_file: path of .maf file
 
-It is suggested to extract mutation information from .maf files and assign them into different .csv files randomly, in order to call data easily and avoid overfitting.
+It is suggested to extract mutation information from .maf files and assign them into different .csv files randomly, in order to call data easily and avoid overfitting. If '.csv' files are needed, run `python dataloader.py`, the path constant in `dataloader.py` needed to be modified.
 
 > Function `GetMutSeq(geneseq, mutpos, extend, bidirct)`
 >
