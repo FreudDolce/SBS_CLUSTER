@@ -20,7 +20,7 @@ def GetWholeSequence(seq_path):
     """
     wholeseq = Fasta(seq_path)
     return wholeseq
-WHOLE_SEQ = GetWholeSequence(CFG.WHOLE_SEQ_PATH)
+#WHOLE_SEQ = GetWholeSequence(CFG.WHOLE_SEQ_PATH)
 
 
 def _get_mut_dict():
@@ -52,6 +52,8 @@ def _read_maf_data(maf_file):
     mut_list = []
     for i in range(len(mut_info)):
         mut_list.append([_get_patient_id(mut_info['Tumor_Sample_Barcode'][i]),
+                         mut_info['case_id'][i],
+                         mut_info['Entrez_Gene_Id'],
                          mut_info['Hugo_Symbol'][i],
                          mut_info['Chromosome'][i],
                          mut_info['Start_Position'][i],
